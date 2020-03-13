@@ -13,7 +13,7 @@ public class RomanNumeralsValidator {
 		char[] charArray = romanLiteral.toCharArray();
         char previousRomanChar = ' ';
 
-        int characterRepeatCount = 1;
+        int countOfRepetitions = 1;
         int total = 0;
         int previousRomanCharacterOrdinal = Integer.MAX_VALUE; 
         int currentRomanCharacterOrdinal;
@@ -29,10 +29,10 @@ public class RomanNumeralsValidator {
             currentRomanCharacterOrdinal = RomanNumerals.valueOf(String.valueOf(currentChar)).ordinal();
             
             //The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more. characterRepeatCount is incremented when the current character gets a match with the previous one.
-            if(currentChar == previousRomanChar && ++characterRepeatCount < 4 && ThreeTimesRepeatedCharacters.contains(currentChar)){
+            if(currentChar == previousRomanChar && ++countOfRepetitions < 4 && ThreeTimesRepeatedCharacters.contains(currentChar)){
                 total += currentRomanCharNumericValue;
             }
-            else if(characterRepeatCount > 3){
+            else if(countOfRepetitions > 3){
                 total = -1;
             }
             //The symbols repeat itself which are not in the set of three times repeated characters
@@ -48,7 +48,7 @@ public class RomanNumeralsValidator {
                 //in case of C as a previous character ordinal is 4 and the current character ordinal is 6 
                 if(previousRomanCharacterOrdinal + 2 >= currentRomanCharacterOrdinal){
                     total += currentRomanCharNumericValue - (2 * previousRomanCharNumericValue); 
-                    characterRepeatCount = 1;
+                    countOfRepetitions = 1;
                 }
                 else{
                     total = -1;
@@ -59,7 +59,7 @@ public class RomanNumeralsValidator {
                 total = -1;
             }
             else{
-                characterRepeatCount = 1;
+                countOfRepetitions = 1;
                 total += currentRomanCharNumericValue;
             }
             previousRomanChar = currentChar;
